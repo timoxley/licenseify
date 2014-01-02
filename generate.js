@@ -11,20 +11,25 @@ module.exports = function (license, cb) {
 
   log.info('Loading up `%s`', license);
 
-  var file, tmpl, props;
+  var file, tmpl, props = {};
   try {
     file = fs.readFileSync(__dirname + '/licenses/' + license + '/LICENSE').toString('utf8');
     tmpl = hb.compile(file);
-    props = require('./licenses/' + license + '/properties.json');
   }
   catch (err) {
     return process.nextTick(function () {
       cb(err);
     });
   }
+  try {
+    props = require('./licenses/' + license + '/properties.json');
+  }
+  catch (err) {}
 
-  log.info(colors.yellow('NOW IT\'S TIME TO FILL IN THE BLANKS!'));
-  log.info('');
+  if (Object.keys(props).length) {
+    log.info(colors.yellow('NOW IT\'S TIME TO FILL IN THE BLANKS!'));
+    log.info('');
+  }
 
   async.eachSeries(Object.keys(props), function (k, next) {
     read({ prompt: '????: ' + props[k] + '? > ' }, function (err, ans) {
