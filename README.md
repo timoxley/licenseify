@@ -16,6 +16,10 @@ With npm:
 
     $ licenseify MIT
 
+## generate license specified by package.json in current folder
+
+    $ licenseify .
+
 ## tests
 
 None. Ha!

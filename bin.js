@@ -28,6 +28,19 @@ if (process.argv.length !== 3) {
 
 var type = process.argv.slice().pop();
 
+if (type === '.') {
+  try {
+    log.info('READING LICENSE FROM package.json');
+    var pkg = JSON.parse(fs.readFileSync(process.cwd() + '/package.json', 'utf8'));
+    type = pkg.license;
+    log.info('FOUND %s', type);
+  }
+  catch (err) {
+    log.error('ERROR READING package.json');
+    throw err;
+  }
+}
+
 if (ls.indexOf(type) !== -1) {
   var e;
   try {
