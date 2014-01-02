@@ -1,6 +1,6 @@
 {
   "name": "licenseify",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Set up a LICENSE file fairly brainlessly",
   "bin": {
     "licenseify": "./bin.js"
